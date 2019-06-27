@@ -1,5 +1,12 @@
-let cube, scene, camera, renderer
-let ADD = 0.1
+let cube, scene, camera, renderer, sphere
+let ADD = 0.01
+
+const createSphere = () => {
+  let geometry = new THREE.SphereGeometry(5, 30, 30)
+  let material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true })
+  sphere = new THREE.Mesh(geometry, material)
+  scene.add(sphere)
+}
 
 const createCube = () => {
   const geometry = new THREE.BoxGeometry(1, 1, 1)
@@ -10,11 +17,12 @@ const createCube = () => {
 
 const init = () => {
   scene = new THREE.Scene()
-  scene.background = new THREE.Color(0xababab)
+  scene.background = new THREE.Color(0x000000)
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000)
-  camera.position.z = 5
+  camera.position.z = 20
 
-  createCube()
+  //createCube()
+  createSphere()
 
   renderer = new THREE.WebGLRenderer()
   renderer.setSize(window.innerWidth, window.innerHeight)
@@ -24,9 +32,10 @@ const init = () => {
 const mainLoop = () => {
   //cube.position.x += ADD
   //cube.rotation.z -= ADD
-  cube.rotation.y += ADD
-
-  //if (cube.position.x <= -3 || cube.position.x >= 3) ADD *= -1
+  //cube.rotation.y += ADD
+  //
+  sphere.rotation.x += ADD
+  //sphere.rotation.y += ADD
 
   renderer.render(scene, camera)
   requestAnimationFrame(mainLoop)
